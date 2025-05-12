@@ -3,6 +3,7 @@ package it.epicode.retro_vault.utenti;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import it.epicode.retro_vault.auth.Role;
+import it.epicode.retro_vault.recensioni.Recensione;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,10 +13,11 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "Utente")
+@Table(name = "Utenti")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -42,6 +44,8 @@ public class Utente implements UserDetails {
     @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
+    @OneToMany(mappedBy = "utente")
+    private List<Recensione> recensioni;
 
 
 
