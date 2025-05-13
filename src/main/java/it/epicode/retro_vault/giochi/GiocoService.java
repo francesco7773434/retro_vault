@@ -36,6 +36,14 @@ public class GiocoService {
 
         List<Recensione> recensioni = recensioneRepository.findByGiocoId(id);
 
+        double votoMedio = 0.0;
+        if (!recensioni.isEmpty()) {
+            votoMedio = recensioni.stream()
+                    .mapToInt(Recensione::getVoto)
+                    .average()
+                    .orElse(0.0);
+        }
+
 
         GiocoDettaglioResponse response = new GiocoDettaglioResponse();
         BeanUtils.copyProperties(gioco, response);
@@ -47,6 +55,7 @@ public class GiocoService {
                 .map(this::mapToRecensioneResponse)
                 .collect(Collectors.toList());
         response.setTutteLeRecensioni(recensioneResponses);
+        response.setVotoMedio(votoMedio);
 
         return response;
     }
@@ -115,6 +124,16 @@ public class GiocoService {
         Piattaforma piattaforma = gioco.getPiattaforma();
         response.setPiattaformaId(piattaforma.getId());
         response.setPiattaformaNome(piattaforma.getNome());
+
+        List<Recensione> recensioni = recensioneRepository.findByGiocoId(gioco.getId());
+        double votoMedio = 0.0;
+        if (!recensioni.isEmpty()) {
+            votoMedio = recensioni.stream()
+                    .mapToInt(Recensione::getVoto)
+                    .average()
+                    .orElse(0.0);
+        }
+        response.setVotoMedio(votoMedio);
 
         return response;
     }

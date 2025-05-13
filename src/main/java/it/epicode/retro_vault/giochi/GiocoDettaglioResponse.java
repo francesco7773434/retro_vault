@@ -22,4 +22,5 @@ public class GiocoDettaglioResponse {
     private Long piattaformaId;
     private String piattaformaNome;
     private List<RecensioneResponse> tutteLeRecensioni;
+    private double votoMedio;
 }

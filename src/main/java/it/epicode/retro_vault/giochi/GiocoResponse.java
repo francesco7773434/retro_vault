@@ -20,5 +20,6 @@ public class GiocoResponse {
     private Genere genere;
     private Long piattaformaId;
     private String piattaformaNome;
+    private double votoMedio;
 
 }
