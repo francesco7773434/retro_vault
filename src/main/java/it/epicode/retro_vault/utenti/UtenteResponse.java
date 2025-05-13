@@ -14,4 +14,13 @@ public class UtenteResponse {
     private String nome;
     private String cognome;
     private String avatar;
+
+    public UtenteResponse(Utente utente) {
+        this.id = utente.getId();
+        this.username = utente.getUsername();
+        this.email = utente.getEmail();
+        this.avatar = utente.getAvatar();
+        this.nome = utente.getNome();
+        this.cognome = utente.getCognome();
+    }
 }

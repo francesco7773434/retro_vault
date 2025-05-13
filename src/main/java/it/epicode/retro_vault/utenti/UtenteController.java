@@ -23,18 +23,18 @@ public class UtenteController {
 
     @GetMapping("")
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("isAuthenticated()")
-    public List<Utente> getAllUtenti() {return utenteService.getAllUtenti();}
+
+    public List<UtenteResponse> getAllUtenti() {return utenteService.getAllUtenti();}
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("isAuthenticated()")
+
     public Utente findById(@PathVariable Long id) {
         return utenteService.getUtenteById(id);
     }
 
 
-    @PreAuthorize("isAuthenticated()")
+
     @GetMapping("/current-user")
 
     public Utente getCurrentUser(@AuthenticationPrincipal Utente utente) {

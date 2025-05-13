@@ -45,6 +45,7 @@ public class Utente implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
     @OneToMany(mappedBy = "utente")
+    @JsonIgnore
     private List<Recensione> recensioni;
 
 

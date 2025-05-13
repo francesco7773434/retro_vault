@@ -14,4 +14,13 @@ public class PiattaformaResponse {
     private String produttore;
     private Integer annoUscita;
     private String logo;
+
+
+    public PiattaformaResponse(Piattaforma piattaforma) {
+        this.id = piattaforma.getId();
+        this.nome = piattaforma.getNome();
+        this.produttore = piattaforma.getProduttore();
+        this.annoUscita = piattaforma.getAnnoUscita();
+        this.logo = piattaforma.getLogo();
+    }
 }

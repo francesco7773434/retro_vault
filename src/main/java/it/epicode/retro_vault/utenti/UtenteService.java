@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @Validated
@@ -95,7 +96,11 @@ public class UtenteService {
         return new CommonResponse(utente.getId());
     }
 
-    public List<Utente> getAllUtenti() {return utenteRepository.findAll();}
+    public List<UtenteResponse> getAllUtenti() {
+        return utenteRepository.findAll().stream()
+                .map(UtenteResponse::new)
+                .collect(Collectors.toList());
+    }
 
     public Utente getUtenteById(Long id) {return utenteRepository.findById(id).orElseThrow(() -> new RuntimeException("Utente non trovato"));   }
 

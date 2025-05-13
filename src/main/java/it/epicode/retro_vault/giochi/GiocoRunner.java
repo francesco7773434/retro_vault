@@ -62,18 +62,27 @@ public class GiocoRunner implements CommandLineRunner {
         utente1.setUsername("Marco Rossi");
         utente1.setEmail("marco.rossi@example.com");
         utente1.setPassword("password123");
+        utente1.setAvatar("https://example.com/avatar.jpg");
+        utente1.setNome("Marco");
+        utente1.setCognome("Rossi");
         utente1 = utenteRepository.save(utente1);
 
         Utente utente2 = new Utente();
         utente2.setUsername("Anna Bianchi");
         utente2.setEmail("anna.bianchi@example.com");
         utente2.setPassword("password456");
+        utente2.setAvatar("https://example.com/avatar.jpg");
+        utente2.setNome("Anna");
+        utente2.setCognome("Bianchi");
         utente2 = utenteRepository.save(utente2);
 
         Utente utente3 = new Utente();
         utente3.setUsername("Giuseppe Verdi");
         utente3.setEmail("giuseppe.verdi@example.com");
         utente3.setPassword("password789");
+        utente3.setAvatar("https://example.com/avatar.jpg");
+        utente3.setNome("Giuseppe");
+        utente3.setCognome("Verdi");
         utente3 = utenteRepository.save(utente3);
 
 

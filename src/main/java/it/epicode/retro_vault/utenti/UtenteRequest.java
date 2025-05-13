@@ -20,5 +20,6 @@ public class UtenteRequest {
     @NotBlank (message = "L'username non può essere vuoto")
     @Column(unique = true)
     private String username;
+    private String avatar;
 
 }
