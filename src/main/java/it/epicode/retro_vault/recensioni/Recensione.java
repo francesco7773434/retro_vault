@@ -32,5 +32,10 @@ public class Recensione {
     private Integer voto;
     private LocalDateTime dataRecensione;
 
+    @PrePersist
+    public void prePersist() {
+        this.dataRecensione = LocalDateTime.now();
+    }
+
 
 }

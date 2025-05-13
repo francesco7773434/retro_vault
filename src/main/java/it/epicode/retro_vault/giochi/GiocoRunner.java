@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
+
 import java.time.LocalDateTime;
 
 @Component
@@ -47,6 +47,7 @@ public class GiocoRunner implements CommandLineRunner {
         gioco1.setDescrizione("Un gioco di azione e avventura post-apocalittico.");
         gioco1.setAnnoUscita(2020);
         gioco1.setGenere(Genere.RPG);
+        gioco1.setImmagine("the_last_of_us_part_ii.jpg");
         gioco1.setPiattaforma(piattaforma1);
         gioco1 = giocoRepository.save(gioco1);
 
@@ -55,6 +56,7 @@ public class GiocoRunner implements CommandLineRunner {
         gioco2.setDescrizione("Un gioco sparatutto in prima persona ambientato nell'universo di Halo.");
         gioco2.setAnnoUscita(2021);
         gioco2.setGenere(Genere.ADVENTURE);
+        gioco2.setImmagine("halo_infinite.jpg");
         gioco2.setPiattaforma(piattaforma2);
         gioco2 = giocoRepository.save(gioco2);
 
@@ -101,6 +103,14 @@ public class GiocoRunner implements CommandLineRunner {
         recensione2.setDataRecensione(LocalDateTime.now());
         recensione2.setUtente(utente2);
         recensioneRepository.save(recensione2);
+
+        Recensione recensione3 = new Recensione();
+        recensione3.setGioco(gioco1);
+        recensione3.setCommento("Un gioco di azione e avventura post-apocalittico.");
+        recensione3.setVoto(7);
+        recensione3.setDataRecensione(LocalDateTime.now());
+        recensione3.setUtente(utente3);
+        recensioneRepository.save(recensione3);
 
 
 

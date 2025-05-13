@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 public class RecensioneResponse {
     private Long id;
     private Long utenteId;
-    private String username;
+    private String usernameUtente;
     private Long giocoId;
     private String titoloGioco;
     private String commento;

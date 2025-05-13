@@ -56,7 +56,7 @@ public class GiocoService {
         RecensioneResponse response = new RecensioneResponse();
         BeanUtils.copyProperties(recensione, response);
         response.setUtenteId(recensione.getUtente().getId());
-        response.setUsername(recensione.getUtente().getUsername());
+        response.setUsernameUtente(recensione.getUtente().getUsername());
         response.setGiocoId(recensione.getGioco().getId());
         response.setTitoloGioco(recensione.getGioco().getTitolo());
         return response;
