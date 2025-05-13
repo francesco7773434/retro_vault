@@ -12,9 +12,9 @@ import java.time.LocalDateTime;
 public class RecensioneResponse {
     private Long id;
     private Long utenteId;
-    private String username;            // nome utente che ha scritto la recensione
+    private String username;
     private Long giocoId;
-    private String titoloGioco;         // nome del gioco recensito
+    private String titoloGioco;
     private String commento;
     private Integer voto;
     private LocalDateTime dataRecensione;

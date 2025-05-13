@@ -1,5 +1,6 @@
 package it.epicode.retro_vault.giochi;
 
+
 import it.epicode.retro_vault.generi.Genere;
 import it.epicode.retro_vault.recensioni.RecensioneResponse;
 import lombok.AllArgsConstructor;
@@ -11,7 +12,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class GiocoResponse {
+public class GiocoDettaglioResponse {
     private Long id;
     private String titolo;
     private String descrizione;
@@ -20,5 +21,5 @@ public class GiocoResponse {
     private Genere genere;
     private Long piattaformaId;
     private String piattaformaNome;
-
+    private List<RecensioneResponse> tutteLeRecensioni;
 }

@@ -1,5 +1,7 @@
 package it.epicode.retro_vault.piattaforme;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import it.epicode.retro_vault.giochi.Gioco;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -12,7 +14,7 @@ import java.util.List;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "Piattaforma")
+@Table(name = "Piattaforme")
 
 public class Piattaforma {
     @Id
@@ -23,6 +25,7 @@ public class Piattaforma {
     private Integer annoUscita;
     private String logo;
     @OneToMany(mappedBy = "piattaforma")
+    @JsonManagedReference
     private List<Gioco> giochi;
 
 

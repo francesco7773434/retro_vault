@@ -1,5 +1,7 @@
 package it.epicode.retro_vault.giochi;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import it.epicode.retro_vault.generi.Genere;
 import it.epicode.retro_vault.piattaforme.Piattaforma;
 import it.epicode.retro_vault.recensioni.Recensione;
@@ -29,8 +31,10 @@ public class Gioco {
     private Genere genere;
     @ManyToOne
     @JoinColumn(name = "piattaforma_id")
+    @JsonBackReference
     private Piattaforma piattaforma;
     @OneToMany(mappedBy = "gioco")
+    @JsonManagedReference
     private List<Recensione> recensioni;
 
 

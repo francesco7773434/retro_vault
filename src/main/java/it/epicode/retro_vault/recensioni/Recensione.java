@@ -1,5 +1,7 @@
 package it.epicode.retro_vault.recensioni;
 
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import it.epicode.retro_vault.giochi.Gioco;
 import it.epicode.retro_vault.utenti.Utente;
 import jakarta.persistence.*;
@@ -23,7 +25,8 @@ public class Recensione {
     @JoinColumn(name = "utente_id")
     private Utente utente;
     @ManyToOne
-    @JoinColumn(name = "game_id")
+    @JoinColumn(name = "gioco_id")
+    @JsonBackReference
     private Gioco gioco;
     private String commento;
     private Integer voto;
