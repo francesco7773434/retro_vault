@@ -1,6 +1,7 @@
 package it.epicode.retro_vault.recensioni;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,9 +10,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RecensioneRequest {
-    @NotBlank(message = "L'ID dell'utente non può essere vuoto")
-    private Long utenteId;
-    @NotBlank(message = "L'ID del gioco non può essere vuoto")
+
+    @NotNull(message = "L'ID del gioco non può essere vuoto")
     private Long giocoId;
     @NotBlank(message = "Il commento non può essere vuoto")
     private String commento;

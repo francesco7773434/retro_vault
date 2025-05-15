@@ -1,11 +1,16 @@
 package it.epicode.retro_vault.recensioni;
 
 import it.epicode.retro_vault.common.CommonResponse;
+import it.epicode.retro_vault.exceptions.NotFoundException;
+import it.epicode.retro_vault.utenti.Utente;
+import it.epicode.retro_vault.utenti.UtenteRepository;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -15,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class RecensioneController {
     @Autowired
     private RecensioneService recensioneService;
+    @Autowired
+    private UtenteRepository utenteRepository;
 
 
     @GetMapping("/recensioni")
@@ -41,8 +48,13 @@ public class RecensioneController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public CommonResponse createRecensione(@RequestBody RecensioneRequest request) {
-        return recensioneService.createRecensione(request);
+    @PreAuthorize("isAuthenticated()")
+    public CommonResponse createRecensione(@RequestBody RecensioneRequest request, Authentication authentication) {
+        String username = authentication.getName();
+        Utente utente = utenteRepository.findByUsername(username)
+                .orElseThrow(() -> new NotFoundException("Utente non trovato"));
+
+        return recensioneService.createRecensione(request, utente);
     }
 
     @PutMapping("/{id}")

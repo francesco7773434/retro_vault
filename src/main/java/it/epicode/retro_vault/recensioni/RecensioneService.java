@@ -3,6 +3,7 @@ package it.epicode.retro_vault.recensioni;
 import it.epicode.retro_vault.common.CommonResponse;
 import it.epicode.retro_vault.exceptions.NotFoundException;
 import it.epicode.retro_vault.giochi.GiocoRepository;
+import it.epicode.retro_vault.utenti.Utente;
 import it.epicode.retro_vault.utenti.UtenteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,14 +23,13 @@ public class RecensioneService {
     @Autowired
     private UtenteRepository utenteRepository;
 
-    public CommonResponse createRecensione(RecensioneRequest request) {
+    public CommonResponse createRecensione(RecensioneRequest request, Utente utente) {
         Recensione recensione = new Recensione();
         recensione.setVoto(request.getVoto());
         recensione.setCommento(request.getCommento());
         recensione.setGioco(giocoRepository.findById(request.getGiocoId())
                 .orElseThrow(() -> new NotFoundException("Gioco non trovato")));
-        recensione.setUtente(utenteRepository.findById(request.getUtenteId())
-                .orElseThrow(() -> new NotFoundException("Utente non trovato")));
+        recensione.setUtente(utente);
         recensioneRepository.save(recensione);
         return new CommonResponse(recensione.getId());
     }
