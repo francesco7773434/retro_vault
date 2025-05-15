@@ -107,7 +107,7 @@ public class GiocoService {
         Pageable pageable = PageRequest.of(page, size, Sort.by(sort));
         Page<Gioco> giochi = giocoRepository.findAll(pageable);
 
-        // Converti ogni Gioco in GiocoResponse
+
         Page<GiocoResponse> giocoResponses = giochi.map(this::convertToGiocoResponse);
         return giocoResponses;
     }

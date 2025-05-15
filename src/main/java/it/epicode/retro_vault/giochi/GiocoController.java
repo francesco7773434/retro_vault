@@ -19,7 +19,7 @@ public class GiocoController {
 
     @GetMapping("/all")
     public ResponseEntity<Page<GiocoResponse>> getAllGiochi( @RequestParam(defaultValue = "0") int page,
-                                                             @RequestParam(defaultValue = "10") int size,
+                                                             @RequestParam(defaultValue = "30") int size,
                                                              @RequestParam(defaultValue = "titolo") String sort) {
         Page<GiocoResponse> giochi = giocoService.getAllGiochi(page, size, sort);
         return ResponseEntity.ok(giochi);
