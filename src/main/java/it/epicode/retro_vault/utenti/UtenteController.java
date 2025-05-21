@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -63,14 +64,21 @@ public class UtenteController {
     }
 
 
-    @PreAuthorize("isAuthenticated()")
+    @PreAuthorize("hasRole('ROLE_USER')")
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
 
     public Utente updateUtente(@PathVariable Long id, @RequestBody UtenteRequest request, @AuthenticationPrincipal Utente utente) {
+        log.info("ID utente autenticato: {}", utente.getId());
+        log.info("ID utente da aggiornare: {}", id);
+
+        if (!utente.getId().equals(id)) {
+            log.error("Accesso negato! L'utente sta tentando di modificare un altro profilo.");
+            throw new AccessDeniedException("Non puoi modificare il profilo di un altro utente.");
+        }
+
         return utenteService.updateUtente(id, request, utente);
     }
-
     //aggiunte
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
