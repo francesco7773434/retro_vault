@@ -10,4 +10,6 @@ public interface RecensioneRepository extends JpaRepository<Recensione, Long> {
     List<Recensione> findByGiocoId(Long giocoId);
 
     Page<Recensione> findByGiocoId(Long giocoId, Pageable pageable);
+
+    Page<Recensione> findByUtenteId(Long utenteId, Pageable pageable);
 }

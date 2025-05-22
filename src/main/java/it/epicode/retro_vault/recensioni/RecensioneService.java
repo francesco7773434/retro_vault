@@ -79,4 +79,9 @@ public class RecensioneService {
         }
         recensioneRepository.deleteById(id);
     }
+    public Page<RecensioneResponse> getRecensioniByUtente(Long utenteId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("dataRecensione").descending());
+        Page<Recensione> recensioni = recensioneRepository.findByUtenteId(utenteId, pageable);
+        return recensioni.map(this::toResponse);
+    }
 }

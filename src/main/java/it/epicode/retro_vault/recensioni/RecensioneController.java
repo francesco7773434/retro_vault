@@ -67,5 +67,14 @@ public class RecensioneController {
         recensioneService.deleteRecensione(id);
     }
 
+    @GetMapping("/utente/{utenteId}/recensioni")
+    public Page<RecensioneResponse> getRecensioniByUtente(
+            @PathVariable Long utenteId,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        return recensioneService.getRecensioniByUtente(utenteId, page, size);
+    }
+
 
 }
