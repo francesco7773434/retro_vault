@@ -1,5 +1,6 @@
 package it.epicode.retro_vault.giochi;
 
+import it.epicode.retro_vault.auth.Role;
 import it.epicode.retro_vault.generi.Genere;
 import it.epicode.retro_vault.piattaforme.Piattaforma;
 import it.epicode.retro_vault.piattaforme.PiattaformaRepository;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Component
 @RequiredArgsConstructor
@@ -170,6 +172,7 @@ public class GiocoRunner implements CommandLineRunner {
         utente1.setAvatar("https://example.com/avatar.jpg");
         utente1.setNome("Marco");
         utente1.setCognome("Rossi");
+        utente1.setRoles(Set.of(Role.ROLE_USER));
         utente1 = utenteRepository.save(utente1);
 
         Utente utente2 = new Utente();
@@ -179,6 +182,7 @@ public class GiocoRunner implements CommandLineRunner {
         utente2.setAvatar("https://example.com/avatar.jpg");
         utente2.setNome("Anna");
         utente2.setCognome("Bianchi");
+        utente2.setRoles(Set.of(Role.ROLE_USER));
         utente2 = utenteRepository.save(utente2);
 
         Utente utente3 = new Utente();
@@ -188,7 +192,18 @@ public class GiocoRunner implements CommandLineRunner {
         utente3.setAvatar("https://example.com/avatar.jpg");
         utente3.setNome("Giuseppe");
         utente3.setCognome("Verdi");
+        utente3.setRoles(Set.of(Role.ROLE_USER));
         utente3 = utenteRepository.save(utente3);
+
+        Utente admin = new Utente();
+        admin.setUsername("admin");
+        admin.setEmail("admin@example");
+        admin.setPassword("password");
+        admin.setAvatar("https://example.com/avatar.jpg");
+        admin.setNome("Admin");
+        admin.setCognome("Admin");
+        admin.setRoles(Set.of(Role.ROLE_ADMIN, Role.ROLE_USER));
+        admin = utenteRepository.save(admin);
 
 
 

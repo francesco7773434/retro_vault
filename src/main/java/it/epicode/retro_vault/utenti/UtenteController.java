@@ -3,6 +3,7 @@ package it.epicode.retro_vault.utenti;
 
 import it.epicode.retro_vault.auth.AuthResponse;
 import it.epicode.retro_vault.auth.LoginRequest;
+import it.epicode.retro_vault.exceptions.NotFoundException;
 import jakarta.mail.MessagingException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -64,20 +66,18 @@ public class UtenteController {
     }
 
 
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("isAuthenticated()")
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
+    public Utente updateUtente(
+            @PathVariable Long id,
+            @RequestBody UtenteRequest request,
+            @AuthenticationPrincipal Utente utenteAutenticato) {
 
-    public Utente updateUtente(@PathVariable Long id, @RequestBody UtenteRequest request, @AuthenticationPrincipal Utente utente) {
-        log.info("ID utente autenticato: {}", utente.getId());
+        log.info("ID utente autenticato: {}", utenteAutenticato.getId());
         log.info("ID utente da aggiornare: {}", id);
 
-        if (!utente.getId().equals(id)) {
-            log.error("Accesso negato! L'utente sta tentando di modificare un altro profilo.");
-            throw new AccessDeniedException("Non puoi modificare il profilo di un altro utente.");
-        }
-
-        return utenteService.updateUtente(id, request, utente);
+        return utenteService.updateUtente(id, request, utenteAutenticato);
     }
     //aggiunte
     @PreAuthorize("hasRole('ROLE_ADMIN')")

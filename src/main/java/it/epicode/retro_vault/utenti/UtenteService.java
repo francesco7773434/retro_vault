@@ -75,8 +75,8 @@ public class UtenteService {
                     new UsernamePasswordAuthenticationToken(username, password)
             );
 
-            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-            return jwtTokenUtil.generateToken(userDetails);
+            Utente utente= (Utente) authentication.getPrincipal();
+            return jwtTokenUtil.generateToken(utente);
         } catch (AuthenticationException e) {
             throw new SecurityException("Credenziali non valide", e);
         }
@@ -106,9 +106,19 @@ public class UtenteService {
 
     public Utente updateUtente(Long id, UtenteRequest request, Utente utenteCorrente) {
         boolean isAdmin = utenteCorrente.getRoles().contains(Role.ROLE_ADMIN);
-        if(utenteCorrente.getId() == id || isAdmin) {
-            Utente utente= utenteRepository.findById(id).orElseThrow(() -> new NotFoundException("Utente non trovato"));
-            BeanUtils.copyProperties(request, utente);
+
+        // Confronto corretto con .equals() tra Long
+        if (utenteCorrente.getId().equals(id) || isAdmin) {
+            Utente utente = utenteRepository.findById(id)
+                    .orElseThrow(() -> new NotFoundException("Utente non trovato"));
+
+            // Copia solo i campi modificabili
+            utente.setNome(request.getNome());
+            utente.setCognome(request.getCognome());
+            utente.setEmail(request.getEmail());
+            utente.setUsername(request.getUsername());
+            utente.setAvatar(request.getAvatar());
+
             return utenteRepository.save(utente);
         } else {
             throw new IllegalArgumentException("Non sei autorizzato a modificare questo utente");
