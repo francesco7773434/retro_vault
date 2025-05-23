@@ -10,6 +10,7 @@ import it.epicode.retro_vault.utenti.Utente;
 import it.epicode.retro_vault.utenti.UtenteRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 
@@ -23,6 +24,7 @@ public class GiocoRunner implements CommandLineRunner {
     private final PiattaformaRepository piattaformaRepository;
     private final RecensioneRepository recensioneRepository;
     private final UtenteRepository utenteRepository;
+    private final PasswordEncoder passwordEncoder;
 
     private void salvaGiocoSeNonEsiste(String titolo, String descrizione, int anno,
                                        Genere genere, String immagine, Piattaforma piattaforma) {
@@ -42,94 +44,58 @@ public class GiocoRunner implements CommandLineRunner {
         }
     }
 
+    private void creaUtenteSeNonEsiste(String username, String email, String password, String nome,
+                                       String cognome, String avatar, Set<Role> roles) {
+        if (utenteRepository.findByUsername(username).isEmpty()) {
+            Utente utente = new Utente();
+            utente.setUsername(username);
+            utente.setEmail(email);
+            utente.setPassword(passwordEncoder.encode(password));
+            utente.setNome(nome);
+            utente.setCognome(cognome);
+            utente.setAvatar(avatar);
+            utente.setRoles(roles);
+            utenteRepository.save(utente);
+            System.out.println("Utente creato: " + username);
+        } else {
+            System.out.println("Utente già esistente: " + username);
+        }
+    }
+
+    private Piattaforma creaPiattaformaSeNonEsiste(String nome, String produttore, int annoUscita, String logo) {
+        return piattaformaRepository.findByNome(nome)
+                .orElseGet(() -> {
+                    Piattaforma piattaforma = new Piattaforma();
+                    piattaforma.setNome(nome);
+                    piattaforma.setProduttore(produttore);
+                    piattaforma.setAnnoUscita(annoUscita);
+                    piattaforma.setLogo(logo);
+                    piattaformaRepository.save(piattaforma);
+                    System.out.println("Piattaforma creata: " + nome);
+                    return piattaforma;
+                });
+    }
+
+
 
 
     @Override
     public void run(String... args) throws Exception {
 
-        Piattaforma piattaforma1 = new Piattaforma();
-        piattaforma1.setNome("NES");
-        piattaforma1.setProduttore("Nintendo");
-        piattaforma1.setAnnoUscita(1983);
-        piattaforma1.setLogo("nes_logo.png");
-        piattaformaRepository.save(piattaforma1);
 
-        Piattaforma piattaforma2 = new Piattaforma();
-        piattaforma2.setNome("Super Nintendo Entertainment System");
-        piattaforma2.setProduttore("Nintendo");
-        piattaforma2.setAnnoUscita(1990);
-        piattaforma2.setLogo("snes_logo.png");
-        piattaformaRepository.save(piattaforma2);
+        Piattaforma piattaforma1 = creaPiattaformaSeNonEsiste("NES", "Nintendo", 1983, "nes_logo.png");
+        Piattaforma piattaforma2 = creaPiattaformaSeNonEsiste("Super Nintendo Entertainment System", "Nintendo", 1990, "snes_logo.png");
+        Piattaforma piattaforma3 = creaPiattaformaSeNonEsiste("Sega Genesis", "Sega", 1988, "genesis_logo.png");
+        Piattaforma piattaforma4 = creaPiattaformaSeNonEsiste("Nintendo 64", "Nintendo", 1996, "n64_logo.png");
+        Piattaforma piattaforma5 = creaPiattaformaSeNonEsiste("PlayStation", "Sony", 1994, "ps1_logo.png");
+        Piattaforma piattaforma6 = creaPiattaformaSeNonEsiste("Game Boy", "Nintendo", 1989, "gameboy_logo.png");
+        Piattaforma piattaforma7 = creaPiattaformaSeNonEsiste("Atari 2600", "Atari", 1977, "atari2600_logo.png");
+        Piattaforma piattaforma8 = creaPiattaformaSeNonEsiste("Dreamcast", "Sega", 1998, "dreamcast_logo.png");
+        Piattaforma piattaforma9 = creaPiattaformaSeNonEsiste("PlayStation 2", "Sony", 2000, "ps2_logo.png");
+        Piattaforma piattaforma10 = creaPiattaformaSeNonEsiste("GameCube", "Nintendo", 2001, "gamecube_logo.png");
+        Piattaforma piattaforma11 = creaPiattaformaSeNonEsiste("Sega Saturn", "Sega", 1994, "saturn_logo.png");
+        Piattaforma piattaforma12 = creaPiattaformaSeNonEsiste("Neo Geo", "SNK", 1990, "neogeo_logo.png");
 
-        Piattaforma piattaforma3 = new Piattaforma();
-        piattaforma3.setNome("Sega Genesis");
-        piattaforma3.setProduttore("Sega");
-        piattaforma3.setAnnoUscita(1988);
-        piattaforma3.setLogo("genesis_logo.png");
-        piattaformaRepository.save(piattaforma3);
-
-        Piattaforma piattaforma4 = new Piattaforma();
-        piattaforma4.setNome("Nintendo 64");
-        piattaforma4.setProduttore("Nintendo");
-        piattaforma4.setAnnoUscita(1996);
-        piattaforma4.setLogo("n64_logo.png");
-        piattaformaRepository.save(piattaforma4);
-
-        Piattaforma piattaforma5 = new Piattaforma();
-        piattaforma5.setNome("PlayStation");
-        piattaforma5.setProduttore("Sony");
-        piattaforma5.setAnnoUscita(1994);
-        piattaforma5.setLogo("ps1_logo.png");
-        piattaformaRepository.save(piattaforma5);
-
-        Piattaforma piattaforma6 = new Piattaforma();
-        piattaforma6.setNome("Game Boy");
-        piattaforma6.setProduttore("Nintendo");
-        piattaforma6.setAnnoUscita(1989);
-        piattaforma6.setLogo("gameboy_logo.png");
-        piattaformaRepository.save(piattaforma6);
-
-        Piattaforma piattaforma7 = new Piattaforma();
-        piattaforma7.setNome("Atari 2600");
-        piattaforma7.setProduttore("Atari");
-        piattaforma7.setAnnoUscita(1977);
-        piattaforma7.setLogo("atari2600_logo.png");
-        piattaformaRepository.save(piattaforma7);
-
-        Piattaforma piattaforma8 = new Piattaforma();
-        piattaforma8.setNome("Dreamcast");
-        piattaforma8.setProduttore("Sega");
-        piattaforma8.setAnnoUscita(1998);
-        piattaforma8.setLogo("dreamcast_logo.png");
-        piattaformaRepository.save(piattaforma8);
-
-        Piattaforma piattaforma9 = new Piattaforma();
-        piattaforma9.setNome("PlayStation 2");
-        piattaforma9.setProduttore("Sony");
-        piattaforma9.setAnnoUscita(2000);
-        piattaforma9.setLogo("ps2_logo.png");
-        piattaformaRepository.save(piattaforma9);
-
-        Piattaforma piattaforma10 = new Piattaforma();
-        piattaforma10.setNome("GameCube");
-        piattaforma10.setProduttore("Nintendo");
-        piattaforma10.setAnnoUscita(2001);
-        piattaforma10.setLogo("gamecube_logo.png");
-        piattaformaRepository.save(piattaforma10);
-
-        Piattaforma piattaforma11 = new Piattaforma();
-        piattaforma11.setNome("Sega Saturn");
-        piattaforma11.setProduttore("Sega");
-        piattaforma11.setAnnoUscita(1994);
-        piattaforma11.setLogo("saturn_logo.png");
-        piattaformaRepository.save(piattaforma11);
-
-        Piattaforma piattaforma12 = new Piattaforma();
-        piattaforma12.setNome("Neo Geo");
-        piattaforma12.setProduttore("SNK");
-        piattaforma12.setAnnoUscita(1990);
-        piattaforma12.setLogo("neogeo_logo.png");
-        piattaformaRepository.save(piattaforma12);
 
 
 
@@ -165,45 +131,27 @@ public class GiocoRunner implements CommandLineRunner {
         salvaGiocoSeNonEsiste("Paperboy", "Consegna i giornali evitando ostacoli e caos urbano.", 1985, Genere.SIMULATION, "https://www.retroplace.com/pics/nes/packshots/2752--paperboy.png", piattaforma1);
         salvaGiocoSeNonEsiste("EarthBound", "Un RPG bizzarro, commovente e surreale.", 1994, Genere.RPG, "https://www.nintendo.com/eu/media/images/10_share_images/games_15/super_nintendo_5/H2x1_SNES_EarthBound.jpg", piattaforma2);
 
-        Utente utente1 = new Utente();
-        utente1.setUsername("Marco Rossi");
-        utente1.setEmail("marco.rossi@example.com");
-        utente1.setPassword("password123");
-        utente1.setAvatar("https://example.com/avatar.jpg");
-        utente1.setNome("Marco");
-        utente1.setCognome("Rossi");
-        utente1.setRoles(Set.of(Role.ROLE_USER));
-        utente1 = utenteRepository.save(utente1);
+        creaUtenteSeNonEsiste("Marco Rossi", "marco.rossi@example.com", "password123", "Marco", "Rossi", "https://example.com/avatar.jpg", Set.of(Role.ROLE_USER));
+        creaUtenteSeNonEsiste("Anna Bianchi", "anna.bianchi@example.com", "password456", "Anna", "Bianchi", "https://example.com/avatar.jpg", Set.of(Role.ROLE_USER));
+        creaUtenteSeNonEsiste("Giuseppe Verdi", "giuseppe.verdi@example.com", "password789", "Giuseppe", "Verdi", "https://example.com/avatar.jpg", Set.of(Role.ROLE_USER));
+        creaUtenteSeNonEsiste("admin", "admin@example.com", "password", "Admin", "Admin", "https://example.com/avatar.jpg", Set.of(Role.ROLE_ADMIN));
 
-        Utente utente2 = new Utente();
-        utente2.setUsername("Anna Bianchi");
-        utente2.setEmail("anna.bianchi@example.com");
-        utente2.setPassword("password456");
-        utente2.setAvatar("https://example.com/avatar.jpg");
-        utente2.setNome("Anna");
-        utente2.setCognome("Bianchi");
-        utente2.setRoles(Set.of(Role.ROLE_USER));
-        utente2 = utenteRepository.save(utente2);
+        if (utenteRepository.findByUsername("admin").isEmpty()) {
+            Utente admin = new Utente();
+            admin.setUsername("admin");
+            admin.setEmail("admin@example.com");
+            admin.setPassword(passwordEncoder.encode("password"));
+            admin.setAvatar("https://example.com/avatar.jpg");
+            admin.setNome("Admin");
+            admin.setCognome("Admin");
+            admin.setRoles(Set.of(Role.ROLE_ADMIN));
+            utenteRepository.save(admin);
 
-        Utente utente3 = new Utente();
-        utente3.setUsername("Giuseppe Verdi");
-        utente3.setEmail("giuseppe.verdi@example.com");
-        utente3.setPassword("password789");
-        utente3.setAvatar("https://example.com/avatar.jpg");
-        utente3.setNome("Giuseppe");
-        utente3.setCognome("Verdi");
-        utente3.setRoles(Set.of(Role.ROLE_USER));
-        utente3 = utenteRepository.save(utente3);
-
-        Utente admin = new Utente();
-        admin.setUsername("admin");
-        admin.setEmail("admin@example");
-        admin.setPassword("password");
-        admin.setAvatar("https://example.com/avatar.jpg");
-        admin.setNome("Admin");
-        admin.setCognome("Admin");
-        admin.setRoles(Set.of(Role.ROLE_ADMIN, Role.ROLE_USER));
-        admin = utenteRepository.save(admin);
+            System.out.println("Utente admin creato.");
+        } else {
+            System.out.println("Utente admin già presente.");
+        }
+    }
 
 
 
@@ -211,4 +159,4 @@ public class GiocoRunner implements CommandLineRunner {
 
 
     }
-}
+
