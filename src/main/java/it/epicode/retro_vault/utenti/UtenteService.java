@@ -142,5 +142,13 @@ public class UtenteService {
         utenteRepository.save(utente);
     }
 
+    public UtenteResponse fromEntityToResponse(Utente utente) {
+        UtenteResponse utenteResponse = new UtenteResponse();
+        BeanUtils.copyProperties(utente, utenteResponse);
+        return utenteResponse;
+    }
+
+
+
 
 }
