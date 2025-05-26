@@ -134,6 +134,7 @@ public class GiocoRunner implements CommandLineRunner {
         creaUtenteSeNonEsiste("Marco Rossi", "marco.rossi@example.com", "password123", "Marco", "Rossi", "https://example.com/avatar.jpg", Set.of(Role.ROLE_USER));
         creaUtenteSeNonEsiste("Anna Bianchi", "anna.bianchi@example.com", "password456", "Anna", "Bianchi", "https://example.com/avatar.jpg", Set.of(Role.ROLE_USER));
         creaUtenteSeNonEsiste("Giuseppe Verdi", "giuseppe.verdi@example.com", "password789", "Giuseppe", "Verdi", "https://example.com/avatar.jpg", Set.of(Role.ROLE_USER));
+
         creaUtenteSeNonEsiste("admin", "admin@example.com", "password", "Admin", "Admin", "https://example.com/avatar.jpg", Set.of(Role.ROLE_ADMIN));
 
         if (utenteRepository.findByUsername("admin").isEmpty()) {

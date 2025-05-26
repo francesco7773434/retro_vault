@@ -1,8 +1,11 @@
 package it.epicode.retro_vault.utenti;
 
+import it.epicode.retro_vault.auth.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -14,6 +17,7 @@ public class UtenteResponse {
     private String nome;
     private String cognome;
     private String avatar;
+    private Set<Role> roles;
 
     public UtenteResponse(Utente utente) {
         this.id = utente.getId();
@@ -22,5 +26,6 @@ public class UtenteResponse {
         this.avatar = utente.getAvatar();
         this.nome = utente.getNome();
         this.cognome = utente.getCognome();
+        this.roles = utente.getRoles();
     }
 }
