@@ -134,6 +134,19 @@ public class GiocoRunner implements CommandLineRunner {
         creaUtenteSeNonEsiste("Marco Rossi", "marco.rossi@example.com", "password123", "Marco", "Rossi", "https://example.com/avatar.jpg", Set.of(Role.ROLE_USER));
         creaUtenteSeNonEsiste("Anna Bianchi", "anna.bianchi@example.com", "password456", "Anna", "Bianchi", "https://example.com/avatar.jpg", Set.of(Role.ROLE_USER));
         creaUtenteSeNonEsiste("Giuseppe Verdi", "giuseppe.verdi@example.com", "password789", "Giuseppe", "Verdi", "https://example.com/avatar.jpg", Set.of(Role.ROLE_USER));
+        creaUtenteSeNonEsiste("lucaconti", "luca.conti@example.com", "pass1234", "Luca", "Conti", "https://example.com/avatar4.jpg", Set.of(Role.ROLE_USER));
+        creaUtenteSeNonEsiste("giuliarinaldi", "giulia.rinaldi@example.com", "pass5678", "Giulia", "Rinaldi", "https://example.com/avatar5.jpg", Set.of(Role.ROLE_USER));
+        creaUtenteSeNonEsiste("marcobianchi", "marco.bianchi@example.com", "pwd7890", "Marco", "Bianchi", "https://example.com/avatar6.jpg", Set.of(Role.ROLE_USER));
+        creaUtenteSeNonEsiste("saraferrari", "sara.ferrari@example.com", "pwd12345", "Sara", "Ferrari", "https://example.com/avatar7.jpg", Set.of(Role.ROLE_USER));
+        creaUtenteSeNonEsiste("daviderusso", "davide.russo@example.com", "pwd67890", "Davide", "Russo", "https://example.com/avatar8.jpg", Set.of(Role.ROLE_USER));
+        creaUtenteSeNonEsiste("francescamoretti", "francesca.moretti@example.com", "mypassword", "Francesca", "Moretti", "https://example.com/avatar9.jpg", Set.of(Role.ROLE_USER));
+        creaUtenteSeNonEsiste("alessandrolombardi", "alessandro.lombardi@example.com", "passpass", "Alessandro", "Lombardi", "https://example.com/avatar10.jpg", Set.of(Role.ROLE_USER));
+        creaUtenteSeNonEsiste("elenamartini", "elena.martini@example.com", "password1", "Elena", "Martini", "https://example.com/avatar11.jpg", Set.of(Role.ROLE_USER));
+        creaUtenteSeNonEsiste("matteogreco", "matteo.greco@example.com", "password2", "Matteo", "Greco", "https://example.com/avatar12.jpg", Set.of(Role.ROLE_USER));
+        creaUtenteSeNonEsiste("chiaraserra", "chiara.serra@example.com", "password3", "Chiara", "Serra", "https://example.com/avatar13.jpg", Set.of(Role.ROLE_USER));
+        creaUtenteSeNonEsiste("andreacosta", "andrea.costa@example.com", "password4", "Andrea", "Costa", "https://example.com/avatar14.jpg", Set.of(Role.ROLE_USER));
+        creaUtenteSeNonEsiste("valentinafontana", "valentina.fontana@example.com", "password5", "Valentina", "Fontana", "https://example.com/avatar15.jpg", Set.of(Role.ROLE_USER));
+
 
         creaUtenteSeNonEsiste("admin", "admin@example.com", "password", "Admin", "Admin", "https://example.com/avatar.jpg", Set.of(Role.ROLE_ADMIN));
 
@@ -152,7 +165,46 @@ public class GiocoRunner implements CommandLineRunner {
         } else {
             System.out.println("Utente admin già presente.");
         }
+
+        String[] commentiFake = {
+                "Un gioco davvero divertente, lo consiglio a tutti!",
+                "Grafica e gameplay perfetti per l’epoca.",
+                "Mi ha fatto rivivere tantissimi ricordi.",
+                "Un classico intramontabile che non delude mai.",
+                "Ottima colonna sonora e sfida bilanciata.",
+                "Peccato per qualche bug, ma nel complesso bello.",
+                "La storia è coinvolgente e ben scritta.",
+                "Un’esperienza di gioco unica e appassionante.",
+                "Divertente e semplice da imparare, ma difficile da padroneggiare.",
+                "Un must-have per gli amanti del genere!"
+        };
+
+        int commentIndex = 0;
+
+        for (Utente utente : utenteRepository.findAll()) {
+            for (Gioco gioco : giocoRepository.findAll()) {
+                boolean recensioneEsistente = recensioneRepository.existsByUtenteAndGioco(utente, gioco);
+
+                if (!recensioneEsistente) {
+                    Recensione recensione = new Recensione();
+                    recensione.setUtente(utente);
+                    recensione.setGioco(gioco);
+                    recensione.setDataRecensione(LocalDateTime.now());
+
+                    // Assegna commento faker e voto random da 3 a 5
+                    recensione.setCommento(commentiFake[commentIndex % commentiFake.length]);
+                    recensione.setVoto(3 + (int)(Math.random() * 3)); // 3, 4 o 5
+
+                    recensioneRepository.save(recensione);
+                    commentIndex++;
+
+                    System.out.println("Recensione creata per utente: " + utente.getUsername() + ", gioco: " + gioco.getTitolo());
+                }
+            }
+        }
     }
+
+
 
 
 
