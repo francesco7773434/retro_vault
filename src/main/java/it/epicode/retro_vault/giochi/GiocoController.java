@@ -31,11 +31,13 @@ public class GiocoController {
     }
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public CommonResponse createGioco(@RequestBody GiocoRequest request) {
         return giocoService.createGioco(request);
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<GiocoRequest> updateGioco(@PathVariable Long id, @RequestBody GiocoRequest request) {
         GiocoRequest updated = giocoService.updateGioco(id, request);
         return ResponseEntity.ok(updated);
@@ -43,6 +45,7 @@ public class GiocoController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void deleteGioco(@PathVariable Long id) {
         giocoService.deleteGioco(id);
     }

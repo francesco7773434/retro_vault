@@ -130,6 +130,17 @@ public class GiocoRunner implements CommandLineRunner {
         salvaGiocoSeNonEsiste("Prince of Persia", "Salti, trappole e spade in una fortezza persiana.", 1989, Genere.ADVENTURE, "https://cdn.oneesports.vn/cdn-data/sites/4/2022/11/POP-Remake-thumb.jpg", piattaforma7);
         salvaGiocoSeNonEsiste("Paperboy", "Consegna i giornali evitando ostacoli e caos urbano.", 1985, Genere.SIMULATION, "https://www.retroplace.com/pics/nes/packshots/2752--paperboy.png", piattaforma1);
         salvaGiocoSeNonEsiste("EarthBound", "Un RPG bizzarro, commovente e surreale.", 1994, Genere.RPG, "https://www.nintendo.com/eu/media/images/10_share_images/games_15/super_nintendo_5/H2x1_SNES_EarthBound.jpg", piattaforma2);
+        salvaGiocoSeNonEsiste("Galaga", "Un classico sparatutto arcade spaziale.", 1981, Genere.ARCADE, "https://upload.wikimedia.org/wikipedia/en/0/00/Galaga_Flyer.png", piattaforma1);
+        salvaGiocoSeNonEsiste("Doom", "Sparatutto in prima persona ambientato su Marte infestato.", 1993, Genere.SHOOTER, "https://upload.wikimedia.org/wikipedia/en/5/57/Doom_cover.png", piattaforma2);
+        salvaGiocoSeNonEsiste("Portal", "Puzzle game con portali e meccaniche innovative.", 2007, Genere.PUZZLE, "https://upload.wikimedia.org/wikipedia/en/f/f9/Portal_cover_art.jpg", piattaforma5);
+        salvaGiocoSeNonEsiste("Skyrim", "Un vasto RPG open world tra draghi e magia.", 2011, Genere.RPG, "https://upload.wikimedia.org/wikipedia/en/6/6f/Skyrim_cover_art.jpg", piattaforma5);
+        salvaGiocoSeNonEsiste("Tomb Raider", "Un'avventura epica con Lara Croft.", 1996, Genere.ADVENTURE, "https://upload.wikimedia.org/wikipedia/en/8/8d/Tomb_Raider_Coverart.png", piattaforma4);
+        salvaGiocoSeNonEsiste("Mortal Kombat", "Il picchiaduro violento e iconico.", 1992, Genere.FIGHTING, "https://upload.wikimedia.org/wikipedia/en/9/9b/Mortal_Kombat_arcade_flyer.png", piattaforma2);
+        salvaGiocoSeNonEsiste("Mario Kart 64", "Corse frenetiche con i personaggi Nintendo.", 1996, Genere.RACING, "https://upload.wikimedia.org/wikipedia/en/6/60/Mario_Kart_64_Cover_Art.jpg", piattaforma4);
+        salvaGiocoSeNonEsiste("FIFA 21", "Il calcio simulato con licenze ufficiali.", 2020, Genere.SPORTS, "https://upload.wikimedia.org/wikipedia/en/3/3e/FIFA_21_Cover_Art.jpg", piattaforma6);
+        salvaGiocoSeNonEsiste("StarCraft", "Strategia in tempo reale tra razze aliene.", 1998, Genere.STRATEGY, "https://upload.wikimedia.org/wikipedia/en/5/59/StarCraft_cover_art.jpg", piattaforma7);
+        salvaGiocoSeNonEsiste("The Sims 4", "Simulazione di vita quotidiana e personalizzazione.", 2014, Genere.SIMULATION, "https://upload.wikimedia.org/wikipedia/en/7/7e/The_Sims_4_cover_art.png", piattaforma5);
+
 
         creaUtenteSeNonEsiste("Marco Rossi", "marco.rossi@example.com", "password123", "Marco", "Rossi", "https://example.com/avatar.jpg", Set.of(Role.ROLE_USER));
         creaUtenteSeNonEsiste("Anna Bianchi", "anna.bianchi@example.com", "password456", "Anna", "Bianchi", "https://example.com/avatar.jpg", Set.of(Role.ROLE_USER));

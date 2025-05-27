@@ -44,7 +44,7 @@ public class Utente implements UserDetails {
     @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
-    @OneToMany(mappedBy = "utente")
+    @OneToMany(mappedBy = "utente" , cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<Recensione> recensioni;
 

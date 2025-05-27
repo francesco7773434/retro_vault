@@ -1,6 +1,7 @@
 package it.epicode.retro_vault.generi;
 
 public enum Genere {
+
     ARCADE,
     SHOOTER,
     PUZZLE,

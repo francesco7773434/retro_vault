@@ -63,6 +63,7 @@ public class RecensioneController {
     }
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PreAuthorize("isAuthenticated()")
     public void deleteRecensione(@PathVariable Long id) {
         recensioneService.deleteRecensione(id);
     }

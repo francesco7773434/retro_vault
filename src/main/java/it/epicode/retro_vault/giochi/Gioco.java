@@ -33,7 +33,7 @@ public class Gioco {
     @JoinColumn(name = "piattaforma_id")
     @JsonBackReference
     private Piattaforma piattaforma;
-    @OneToMany(mappedBy = "gioco")
+    @OneToMany(mappedBy = "gioco",cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<Recensione> recensioni;
 

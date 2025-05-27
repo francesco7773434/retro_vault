@@ -41,12 +41,11 @@ public class UtenteController {
 
     @GetMapping("")
     @ResponseStatus(HttpStatus.OK)
-
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<UtenteResponse> getAllUtenti() {return utenteService.getAllUtenti();}
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-
     public Utente findById(@PathVariable Long id) {
         return utenteService.getUtenteById(id);
     }
@@ -54,7 +53,7 @@ public class UtenteController {
 
 
     @GetMapping("/me")
-
+    @PreAuthorize("isAuthenticated()")
     public Utente getCurrentUser(@AuthenticationPrincipal Utente utente) {
         return utente;
     }
@@ -70,7 +69,6 @@ public class UtenteController {
 
     @PostMapping("/login")
     @ResponseStatus(HttpStatus.CREATED)
-
     public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest loginRequest) {
         log.info("Login request:");
         String token = utenteService.authenticateUser(

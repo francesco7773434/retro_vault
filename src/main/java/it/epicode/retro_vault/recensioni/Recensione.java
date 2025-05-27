@@ -25,7 +25,7 @@ public class Recensione {
     @JoinColumn(name = "utente_id")
     private Utente utente;
     @ManyToOne
-    @JoinColumn(name = "gioco_id")
+    @JoinColumn(name = "gioco_id", nullable = false)
     @JsonBackReference
     private Gioco gioco;
     private String commento;
