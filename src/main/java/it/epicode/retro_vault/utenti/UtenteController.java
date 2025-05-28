@@ -8,10 +8,12 @@ import it.epicode.retro_vault.auth.AuthResponse;
 import it.epicode.retro_vault.auth.LoginRequest;
 import it.epicode.retro_vault.common.EmailSenderService;
 import it.epicode.retro_vault.exceptions.NotFoundException;
+import it.epicode.retro_vault.recensioni.RecensioneResponse;
 import jakarta.mail.MessagingException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -42,7 +44,12 @@ public class UtenteController {
     @GetMapping("")
     @ResponseStatus(HttpStatus.OK)
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public List<UtenteResponse> getAllUtenti() {return utenteService.getAllUtenti();}
+    public Page<UtenteResponse> getAllUtenti(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        return utenteService.getAllUtenti(page, size);
+    }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)

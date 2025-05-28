@@ -9,6 +9,7 @@ import it.epicode.retro_vault.recensioni.RecensioneRepository;
 import it.epicode.retro_vault.utenti.Utente;
 import it.epicode.retro_vault.utenti.UtenteRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -25,6 +26,10 @@ public class GiocoRunner implements CommandLineRunner {
     private final RecensioneRepository recensioneRepository;
     private final UtenteRepository utenteRepository;
     private final PasswordEncoder passwordEncoder;
+
+    @Value("${retro-vault.init-data:false}")
+    private boolean initData;
+
 
     private void salvaGiocoSeNonEsiste(String titolo, String descrizione, int anno,
                                        Genere genere, String immagine, Piattaforma piattaforma) {
@@ -81,6 +86,11 @@ public class GiocoRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+
+        if (!initData) {
+            System.out.println("Inizializzazione dati disattivata (retro-vault.init-data=false).");
+            return;
+        }
 
 
         Piattaforma piattaforma1 = creaPiattaformaSeNonEsiste("NES", "Nintendo", 1983, "nes_logo.png");

@@ -8,10 +8,16 @@ import it.epicode.retro_vault.common.CommonResponse;
 import it.epicode.retro_vault.common.EmailSenderService;
 import it.epicode.retro_vault.exceptions.NotFoundException;
 import it.epicode.retro_vault.exceptions.UsernameException;
+import it.epicode.retro_vault.recensioni.Recensione;
+import it.epicode.retro_vault.recensioni.RecensioneResponse;
 import jakarta.mail.MessagingException;
 import jakarta.persistence.EntityExistsException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -96,11 +102,7 @@ public class UtenteService {
         return new CommonResponse(utente.getId());
     }
 
-    public List<UtenteResponse> getAllUtenti() {
-        return utenteRepository.findAll().stream()
-                .map(UtenteResponse::new)
-                .collect(Collectors.toList());
-    }
+
 
     public Utente getUtenteById(Long id) {return utenteRepository.findById(id).orElseThrow(() -> new RuntimeException("Utente non trovato"));   }
 
@@ -146,6 +148,26 @@ public class UtenteService {
         UtenteResponse utenteResponse = new UtenteResponse();
         BeanUtils.copyProperties(utente, utenteResponse);
         return utenteResponse;
+    }
+
+    public Page<UtenteResponse> getAllUtenti(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("nome").descending());
+        Page<Utente> utenti = utenteRepository.findAll(pageable);
+        return utenti.map(this::toResponse);
+    }
+
+
+
+    private UtenteResponse toResponse(Utente utente) {
+        return new UtenteResponse(
+                utente.getId(),
+                utente.getUsername(),
+                utente.getEmail(),
+                utente.getAvatar(),
+                utente.getNome(),
+                utente.getCognome(),
+                utente.getRoles()
+        );
     }
 
 
