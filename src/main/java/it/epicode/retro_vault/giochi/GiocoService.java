@@ -138,4 +138,14 @@ public class GiocoService {
         return response;
     }
 
+    public Page<GiocoResponse> searchGiochi(
+            String titolo, Integer annoUscita,
+            int page, int size, String sort) {
+
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sort));
+        Page<Gioco> giochi = giocoRepository.findByTitoloAndAnnoUscita(titolo, annoUscita, pageable);
+
+        return giochi.map(this::convertToGiocoResponse);
+    }
+
 }

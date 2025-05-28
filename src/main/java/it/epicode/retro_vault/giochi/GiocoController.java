@@ -49,4 +49,16 @@ public class GiocoController {
     public void deleteGioco(@PathVariable Long id) {
         giocoService.deleteGioco(id);
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<Page<GiocoResponse>> searchGiochi(
+            @RequestParam(required = false) String titolo,
+            @RequestParam(required = false) Integer annoUscita,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "30") int size,
+            @RequestParam(defaultValue = "titolo") String sort) {
+
+        Page<GiocoResponse> risultati = giocoService.searchGiochi(titolo, annoUscita, page, size, sort);
+        return ResponseEntity.ok(risultati);
+    }
 }

@@ -16,15 +16,19 @@ import java.util.List;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "Giochi")
+@Table(name = "giochi")
 
 public class Gioco {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
+    @Column(name = "titolo")
     private String titolo;
+    @Column(name = "descrizione")
     private String descrizione;
+    @Column(name = "immagine")
     private String immagine;
+    @Column(name = "anno_uscita")
     private Integer annoUscita;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
