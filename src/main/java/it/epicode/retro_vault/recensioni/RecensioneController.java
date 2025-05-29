@@ -32,6 +32,15 @@ public class RecensioneController {
         return recensioneService.getAllRecensioni(page, size);
     }
 
+    @GetMapping("/search")
+    public Page<RecensioneResponse> searchRecensioniByTitolo(
+            @RequestParam(required = false) String titolo,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        return recensioneService.searchRecensioniByTitolo(titolo, page, size);
+    }
+
     @GetMapping("/giochi/{giocoId}/recensioni")
     public Page<RecensioneResponse> getRecensioniByGioco(
             @PathVariable Long giocoId,

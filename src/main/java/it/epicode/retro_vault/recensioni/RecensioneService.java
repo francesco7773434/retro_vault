@@ -84,4 +84,10 @@ public class RecensioneService {
         Page<Recensione> recensioni = recensioneRepository.findByUtenteId(utenteId, pageable);
         return recensioni.map(this::toResponse);
     }
+
+    public Page<RecensioneResponse> searchRecensioniByTitolo(String titolo, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("dataRecensione").descending());
+        Page<Recensione> recensioni = recensioneRepository.searchByTitoloGioco(titolo, pageable);
+        return recensioni.map(this::toResponse);
+    }
 }
