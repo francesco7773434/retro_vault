@@ -51,6 +51,17 @@ public class UtenteController {
         return utenteService.getAllUtenti(page, size);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/search")
+    public ResponseEntity<Page<UtenteResponse>> searchUtentiByUsername(
+            @RequestParam(required = false) String username,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        Page<UtenteResponse> risultati = utenteService.searchUtentiByUsername(username, page, size);
+        return ResponseEntity.ok(risultati);
+    }
+
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Utente findById(@PathVariable Long id) {

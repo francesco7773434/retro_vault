@@ -170,6 +170,12 @@ public class UtenteService {
         );
     }
 
+    public Page<UtenteResponse> searchUtentiByUsername(String username, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("username").ascending());
+        Page<Utente> utenti = utenteRepository.searchByUsername(username, pageable);
+        return utenti.map(this::toResponse);
+    }
+
 
 
 
