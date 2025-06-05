@@ -21,5 +21,6 @@ public class GiocoResponse {
     private Long piattaformaId;
     private String piattaformaNome;
     private double votoMedio;
+    private String videoGameplay;
 
 }

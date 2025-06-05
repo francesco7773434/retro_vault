@@ -120,6 +120,7 @@ public class GiocoService {
         response.setImmagine(gioco.getImmagine());
         response.setAnnoUscita(gioco.getAnnoUscita());
         response.setGenere(gioco.getGenere());
+        response.setVideoGameplay(gioco.getVideoGameplay());
 
         Piattaforma piattaforma = gioco.getPiattaforma();
         response.setPiattaformaId(piattaforma.getId());

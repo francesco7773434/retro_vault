@@ -22,4 +22,5 @@ public class GiocoRequest {
     private Genere genere;
     @NotBlank(message = "L'ID della piattaforma non può essere vuoto")
     private Long piattaformaId;
+    private String videoGameplay;
 }

@@ -30,6 +30,8 @@ public class Gioco {
     private String immagine;
     @Column(name = "anno_uscita")
     private Integer annoUscita;
+    @Column(name = "video_gameplay")
+    private String videoGameplay;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Genere genere;

@@ -23,4 +23,5 @@ public class GiocoDettaglioResponse {
     private String piattaformaNome;
     private List<RecensioneResponse> tutteLeRecensioni;
     private double votoMedio;
+    private String videoGameplay;
 }
