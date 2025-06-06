@@ -1,3 +1,9 @@
+Frontend:
+https://github.com/francesco7773434/RetroVault.git
+
+
+
+
 RetroVault è un'applicazione web full stack che permette agli utenti appassionati di videogiochi retrò di esplorare, recensire e valutare titoli classici.
 L’obiettivo del progetto è offrire una libreria digitale interattiva in cui ogni gioco è presentato con una scheda informativa completa, e gli utenti possono contribuire con recensioni personali e valutazioni.
 L’applicazione prevede funzionalità di registrazione e login, visualizzazione della lista dei giochi, ricerca e filtri per piattaforma o genere, e la possibilità per gli utenti autenticati di inserire recensioni e votare i giochi presenti.
